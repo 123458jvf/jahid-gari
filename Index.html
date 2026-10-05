@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>গাড়ির আয়-ব্যয় ড্যাশবোর্ড (Cloud Sync)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Firebase SDK (Version 9+) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+        // ⚠️ আপনার Firebase Project-এর Config তথ্য এখানে বসাবেন
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT.firebaseapp.com",
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT.appspot.com",
+            messagingSenderId: "YOUR_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        let currentUser = null;
+        let carData = {
+            price: 500000,
+            buyDate: new Date().toISOString().split('T')[0],
+            dailyRent: 500,
+            expenses: []
+        };
+
+        // Login Handler
+        window.loginWithGoogle = () => {
+            signInWithPopup(auth, provider).catch(error => console.error(error));
+        };
+
+        // Logout Handler
+        window.logout = () => {
+            signOut(auth);
+        };
+
+        // Auth State Observer
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                currentUser = user;
+                document.getElementById('authSection').classList.add('hidden');
+                document.getElementById('appContent').classList.remove('hidden');
+                document.getElementById('userName').innerText = user.displayName;
+                
+                // Realtime Sync Data from Firebase Cloud
+                onSnapshot(doc(db, "users", user.uid), (docSnap) => {
+                    if (docSnap.exists()) {
+                        carData = docSnap.data();
+                        loadUI();
+                    } else {
+                        saveDataToCloud(); // Save initial data
+                    }
+                });
+            } else {
+                currentUser = null;
+                document.getElementById('authSection').classList.remove('hidden');
+                document.getElementById('appContent').classList.add('hidden');
+            }
+        });
+
+        // Save Data to Cloud
+        async function saveDataToCloud() {
+            if (currentUser) {
+                await setDoc(doc(db, "users", currentUser.uid), carData);
+            }
+        }
+
+        window.saveInfo = () => {
+            carData.price = parseFloat(document.getElementById('carPrice').value) || 0;
+            carData.buyDate = document.getElementById('buyDate').value;
+            carData.dailyRent = parseFloat(document.getElementById('dailyRent').value) || 0;
+            saveDataToCloud();
+        };
+
+        window.addExpense = (e) => {
+            e.preventDefault();
+            const date = document.getElementById('expDate').value;
+            const desc = document.getElementById('expDesc').value;
+            const amount = parseFloat(document.getElementById('expAmount').value);
+
+            carData.expenses.push({ id: Date.now(), date, desc, amount });
+            document.getElementById('expenseForm').reset();
+            saveDataToCloud();
+        };
+
+        window.deleteExpense = (id) => {
+            carData.expenses = carData.expenses.filter(exp => exp.id !== id);
+            saveDataToCloud();
+        };
+
+        function loadUI() {
+            document.getElementById('carPrice').value = carData.price || 500000;
+            document.getElementById('buyDate').value = carData.buyDate || '';
+            document.getElementById('dailyRent').value = carData.dailyRent || 500;
+
+            const buyDateStr = carData.buyDate;
+            let totalDays = 0;
+            if (buyDateStr) {
+                const buyDate = new Date(buyDateStr);
+                const today = new Date();
+                const diffTime = Math.max(0, today - buyDate);
+                totalDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
+            }
+
+            const totalIncome = totalDays * carData.dailyRent;
+            const totalExpense = carData.expenses.reduce((sum, item) => sum + item.amount, 0);
+            const netProfit = totalIncome - totalExpense;
+            const remaining = carData.price - netProfit;
+
+            document.getElementById('totalIncome').innerText = `৳ ${totalIncome.toLocaleString()}`;
+            document.getElementById('totalExpense').innerText = `৳ ${totalExpense.toLocaleString()}`;
+            document.getElementById('netProfit').innerText = `৳ ${netProfit.toLocaleString()}`;
+            document.getElementById('remainingROI').innerText = remaining > 0 ? `৳ ${remaining.toLocaleString()}` : "উসুল হয়েছে! 🎉";
+
+            const list = document.getElementById('expenseList');
+            list.innerHTML = '';
+            carData.expenses.forEach(exp => {
+                list.innerHTML += `
+                    <tr class="border-b">
+                        <td class="p-2 border">${exp.date}</td>
+                        <td class="p-2 border">${exp.desc}</td>
+                        <td class="p-2 border text-red-600 font-semibold">৳ ${exp.amount}</td>
+                        <td class="p-2 border">
+                            <button onclick="deleteExpense(${exp.id})" class="text-red-500 hover:underline">ডিলিট</button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+    </script>
+</head>
+<body class="bg-gray-100 p-4 md:p-8">
+
+    <!-- Login Screen -->
+    <div id="authSection" class="max-w-md mx-auto my-20 bg-white p-8 rounded-lg shadow text-center">
+        <h2 class="text-2xl font-bold mb-4">🚗 গাড়ির হিসাব ড্যাশবোর্ড</h2>
+        <p class="text-gray-600 mb-6">যে কোনো ফোন থেকে আপনার ডাটা এক্সেস করতে গুগল দিয়ে লগইন করুন।</p>
+        <button onclick="loginWithGoogle()" class="bg-blue-600 text-white font-bold px-6 py-3 rounded-lg shadow hover:bg-blue-700 w-full">
+            Sign in with Google
+        </button>
+    </div>
+
+    <!-- Main Dashboard UI -->
+    <div id="appContent" class="max-w-5xl mx-auto space-y-6 hidden">
+        <div class="flex justify-between items-center bg-white p-4 rounded-lg shadow">
+            <div>স্বাগতম, <span id="userName" class="font-bold"></span>!</div>
+            <button onclick="logout()" class="bg-red-500 text-white px-3 py-1 rounded text-sm">Logout</button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="bg-blue-500 text-white p-4 rounded-lg shadow">
+                <p class="text-sm">মোট আয়</p>
+                <p id="totalIncome" class="text-2xl font-bold">৳ 0</p>
+            </div>
+            <div class="bg-red-500 text-white p-4 rounded-lg shadow">
+                <p class="text-sm">মোট খরচ</p>
+                <p id="totalExpense" class="text-2xl font-bold">৳ 0</p>
+            </div>
+            <div class="bg-green-600 text-white p-4 rounded-lg shadow">
+                <p class="text-sm">নিট লাভ</p>
+                <p id="netProfit" class="text-2xl font-bold">৳ 0</p>
+            </div>
+            <div class="bg-purple-600 text-white p-4 rounded-lg shadow">
+                <p class="text-sm">বাকি টাকা উসুল হতে</p>
+                <p id="remainingROI" class="text-2xl font-bold">৳ 0</p>
+            </div>
+        </div>
+
+        <!-- Car Info Card -->
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-xl font-bold text-gray-700 mb-3">📌 গাড়ির মূল তথ্য</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div>
+                    <label class="block text-sm text-gray-600">গাড়ি কেনার দাম (টাকা):</label>
+                    <input type="number" id="carPrice" class="w-full border p-2 rounded mt-1" onchange="saveInfo()">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-600">গাড়ি কেনার তারিখ:</label>
+                    <input type="date" id="buyDate" class="w-full border p-2 rounded mt-1" onchange="saveInfo()">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-600">দৈনিক ভাড়া (টাকা):</label>
+                    <input type="number" id="dailyRent" class="w-full border p-2 rounded mt-1" onchange="saveInfo()">
+                </div>
+            </div>
+        </div>
+
+        <!-- Expense Form -->
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-xl font-bold text-gray-700 mb-3">➕ খরচের এন্ট্রি দিন</h2>
+            <form id="expenseForm" class="grid grid-cols-1 md:grid-cols-4 gap-4" onsubmit="addExpense(event)">
+                <input type="date" id="expDate" required class="border p-2 rounded">
+                <input type="text" id="expDesc" placeholder="বিবরণ" required class="border p-2 rounded">
+                <input type="number" id="expAmount" placeholder="পরিমাণ (টাকা)" required class="border p-2 rounded">
+                <button type="submit" class="bg-red-600 text-white font-bold p-2 rounded hover:bg-red-700">যোগ করুন</button>
+            </form>
+        </div>
+
+        <!-- History -->
+        <div class="bg-white p-5 rounded-lg shadow">
+            <h2 class="text-xl font-bold text-gray-700 mb-3">📜 খরচের তালিকা</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-200">
+                            <th class="p-2 border">তারিখ</th>
+                            <th class="p-2 border">বিবরণ</th>
+                            <th class="p-2 border">টাকা</th>
+                            <th class="p-2 border">অ্যাকশন</th>
+                        </tr>
+                    </thead>
+                    <tbody id="expenseList"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,3747 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#087f8c">
+<title>জাহিদ পরিবহন</title>
+
+<style>
+:root{
+  --bg:#eef3f7;
+  --card:#ffffff;
+  --text:#10202b;
+  --muted:#667784;
+  --primary:#087f8c;
+  --primary2:#073b4c;
+  --line:#dce5ea;
+  --danger:#c92a2a;
+  --success:#2b8a3e;
+  --shadow:0 8px 24px rgba(16,32,43,.08);
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:Arial,"Noto Sans Bengali",sans-serif;
+}
+
+button,input,select,textarea{
+  font:inherit;
+}
+
+button{
+  border:0;
+  border-radius:11px;
+  padding:10px 13px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.btn{
+  background:var(--primary);
+  color:white;
+}
+
+.gray{
+  background:#e9eef2;
+  color:#24333d;
+}
+
+.red{
+  background:#ffe3e3;
+  color:#a61e1e;
+}
+
+.green{
+  background:#d3f9d8;
+  color:#176b2b;
+}
+
+.wrap{
+  max-width:1150px;
+  margin:auto;
+  padding:14px;
+}
+
+/* HEADER */
+
+.top{
+  background:linear-gradient(135deg,#073b4c,#087f8c);
+  color:white;
+  border-radius:20px;
+  padding:16px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  box-shadow:var(--shadow);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:0;
+}
+
+.brand h1{
+  font-size:30px;
+  margin:0;
+  font-weight:900;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+.logo{
+  width:78px;
+  height:78px;
+  flex:none;
+  border-radius:18px;
+  background:white;
+  padding:5px;
+  display:grid;
+  place-items:center;
+  box-shadow:0 4px 12px rgba(0,0,0,.18);
+}
+
+.logo svg{
+  width:100%;
+  height:100%;
+}
+
+.logo img{
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:12px;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+}
+
+.actions button{
+  background:#ffffff20;
+  color:white;
+  border:1px solid #ffffff35;
+}
+
+/* CARD */
+
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px;
+  margin-top:14px;
+  box-shadow:var(--shadow);
+}
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+}
+
+.grid2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+}
+
+label{
+  font-size:13px;
+  color:var(--muted);
+  font-weight:700;
+  display:block;
+  margin-bottom:5px;
+}
+
+input,
+select,
+textarea{
+  width:100%;
+  border:1px solid var(--line);
+  border-radius:10px;
+  padding:10px;
+  background:var(--card);
+  color:var(--text);
+}
+
+textarea{
+  min-height:70px;
+}
+
+h2,h3{
+  margin:5px 0 12px;
+}
+
+.row{
+  display:flex;
+  gap:8px;
+  align-items:center;
+  flex-wrap:wrap;
+}
+
+.between{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.stat{
+  background:#f7fafb;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:13px;
+}
+
+.stat b{
+  display:block;
+  font-size:21px;
+  margin-top:5px;
+}
+
+.badge{
+  display:inline-block;
+  padding:5px 9px;
+  border-radius:99px;
+  background:#e7f5ff;
+  color:#1864ab;
+  font-size:12px;
+  font-weight:700;
+}
+
+.muted{
+  color:var(--muted);
+  font-size:13px;
+}
+
+.hidden{
+  display:none!important;
+}
+
+.scroll{
+  overflow:auto;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  padding:9px 6px;
+  border-bottom:1px solid var(--line);
+  text-align:left;
+  font-size:13px;
+}
+
+th{
+  background:#f4f7f8;
+}
+
+.progress{
+  height:13px;
+  background:#e9ecef;
+  border-radius:99px;
+  overflow:hidden;
+}
+
+.progress i{
+  display:block;
+  height:100%;
+  width:0;
+  background:var(--primary);
+}
+
+.notice{
+  padding:10px;
+  border-radius:10px;
+  background:#fff4cc;
+  color:#795500;
+  font-size:13px;
+}
+
+.oknotice{
+  background:#d3f9d8;
+  color:#176b2b;
+}
+
+.small{
+  font-size:12px;
+}
+
+/* LOGIN */
+
+#loginGate{
+  position:fixed;
+  inset:0;
+  background:rgba(7,30,41,.93);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+  z-index:50;
+}
+
+.login{
+  background:white;
+  color:#10202b;
+  border-radius:20px;
+  max-width:430px;
+  width:100%;
+  padding:20px;
+}
+
+.login h2{
+  text-align:center;
+}
+
+.login .logo{
+  margin:auto;
+  width:88px;
+  height:88px;
+}
+
+/* ADMIN */
+
+.admin-user{
+  background:#f7fafb;
+  border:1px solid var(--line);
+  border-radius:14px;
+  padding:12px;
+  margin-top:8px;
+}
+
+/* DARK */
+
+html[data-theme="dark"]{
+  --bg:#101820;
+  --card:#17232d;
+  --text:#edf2f4;
+  --muted:#aab8c0;
+  --line:#30404b;
+}
+
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] th,
+html[data-theme="dark"] .admin-user{
+  background:#1d2b35;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea{
+  background:#142029;
+  color:#fff;
+}
+
+/* MOBILE */
+
+@media(max-width:760px){
+
+  .top{
+    align-items:flex-start;
+  }
+
+  .brand h1{
+    font-size:23px;
+  }
+
+  .logo{
+    width:65px;
+    height:65px;
+  }
+
+  .grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .grid2{
+    grid-template-columns:1fr;
+  }
+
+  .actions{
+    max-width:150px;
+  }
+
+  .actions button{
+    font-size:12px;
+    padding:8px;
+  }
+}
+
+@media(max-width:430px){
+
+  .wrap{
+    padding:9px;
+  }
+
+  .top{
+    padding:12px;
+  }
+
+  .brand{
+    gap:8px;
+  }
+
+  .brand h1{
+    font-size:20px;
+  }
+
+  .logo{
+    width:58px;
+    height:58px;
+  }
+
+  .card{
+    padding:12px;
+  }
+}
+
+/* PRINT */
+
+@media print{
+
+  body{
+    background:white;
+  }
+
+  .no-print,
+  #loginGate,
+  .actions,
+  .tabs{
+    display:none!important;
+  }
+
+  .card{
+    box-shadow:none;
+    border:0;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="wrap">
+
+<!-- HEADER -->
+
+<header class="top">
+
+  <div class="brand">
+
+    <div class="logo" id="logoBox"></div>
+
+    <h1 id="appTitle">
+      জাহিদ পরিবহন
+    </h1>
+
+  </div>
+
+  <div class="actions no-print">
+
+    <button onclick="openLogin()">
+      🔐 Gmail
+    </button>
+
+    <button onclick="toggleTheme()">
+      🌙
+    </button>
+
+    <button onclick="showSettings()">
+      ⚙️
+    </button>
+
+  </div>
+
+</header>
+
+
+<!-- USER STATUS -->
+
+<section class="card no-print">
+
+  <div class="between">
+
+    <div>
+
+      <b id="userState">
+        📱 Guest Mode
+      </b>
+
+      <div
+        class="muted"
+        id="userEmail">
+        Gmail Login করলে Cloud Backup চালু হবে
+      </div>
+
+    </div>
+
+    <div
+      id="adminBadge"
+      class="badge hidden">
+      👑 ADMIN
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- VEHICLE -->
+
+<section class="card no-print">
+
+  <div class="between">
+
+    <h2>
+      🚕 গাড়ি নির্বাচন
+    </h2>
+
+    <button
+      class="btn"
+      onclick="newProfile()">
+      ＋ নতুন গাড়ি
+    </button>
+
+  </div>
+
+  <div
+    class="row"
+    id="profileTabs">
+  </div>
+
+</section>
+
+
+<!-- TODAY -->
+
+<section class="card">
+
+  <div class="between">
+
+    <h2>
+      📊 আজকের হিসাব
+    </h2>
+
+    <span
+      id="todayText"
+      class="badge">
+    </span>
+
+  </div>
+
+  <div class="grid">
+
+    <div class="stat">
+      <span>আজকের আয়</span>
+      <b id="todayIncome">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>আজকের খরচ</span>
+      <b id="todayExpense">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>আজকের লাভ</span>
+      <b id="todayProfit">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>অবস্থা</span>
+      <b id="todayStatus">চালু</b>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- INCOME -->
+
+<section class="card no-print">
+
+  <h2>
+    ➕ দৈনিক আয়
+  </h2>
+
+  <div class="grid2">
+
+    <div>
+
+      <label>
+        তারিখ
+      </label>
+
+      <input
+        id="incomeDate"
+        type="date">
+
+    </div>
+
+    <div>
+
+      <label>
+        আয়
+      </label>
+
+      <input
+        id="incomeAmount"
+        type="number"
+        min="0"
+        placeholder="যেমন 1500">
+
+    </div>
+
+  </div>
+
+  <div
+    class="row"
+    style="margin-top:10px">
+
+    <button
+      class="btn"
+      onclick="addIncome()">
+      আয় Save
+    </button>
+
+    <button
+      class="gray"
+      onclick="setTodayIncome()">
+      আজকের তারিখ
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- EXPENSE -->
+
+<section class="card no-print">
+
+  <h2>
+    ➖ খরচ / মালামাল
+  </h2>
+
+  <div class="grid">
+
+    <div>
+
+      <label>
+        তারিখ
+      </label>
+
+      <input
+        id="expenseDate"
+        type="date">
+
+    </div>
+
+    <div>
+
+      <label>
+        ক্যাটাগরি
+      </label>
+
+      <select id="expenseCat">
+
+        <option>গ্যাস</option>
+        <option>তেল</option>
+        <option>মালামাল</option>
+        <option>মেরামত</option>
+        <option>ড্রাইভার</option>
+        <option>চা-নাস্তা</option>
+        <option>অন্যান্য</option>
+
+      </select>
+
+    </div>
+
+    <div>
+
+      <label>
+        টাকা
+      </label>
+
+      <input
+        id="expenseAmount"
+        type="number"
+        min="0"
+        placeholder="টাকা">
+
+    </div>
+
+    <div>
+
+      <label>
+        বিবরণ
+      </label>
+
+      <input
+        id="expenseNote"
+        placeholder="কি কিনেছেন?">
+
+    </div>
+
+  </div>
+
+  <button
+    class="btn"
+    style="margin-top:10px"
+    onclick="addExpense()">
+    খরচ Save
+  </button>
+
+</section>
+
+
+<!-- MONTH -->
+
+<section class="card">
+
+  <div class="between">
+
+    <h2>
+      📅 মাসিক হিসাব
+    </h2>
+
+    <input
+      id="monthPick"
+      type="month"
+      style="max-width:180px"
+      onchange="render()">
+
+  </div>
+
+  <div class="grid">
+
+    <div class="stat">
+      <span>মাসের আয়</span>
+      <b id="monthIncome">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>মাসের খরচ</span>
+      <b id="monthExpense">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>মাসের লাভ</span>
+      <b id="monthProfit">৳0</b>
+    </div>
+
+    <div class="stat">
+      <span>চালু দিন</span>
+      <b id="runDays">0</b>
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- VEHICLE PURCHASE -->
+
+<section class="card">
+
+  <div class="between">
+
+    <h2>
+      🚕 গাড়ির ক্রয় / বিনিয়োগ
+    </h2>
+
+    <button
+      class="btn no-print"
+      onclick="saveVehicle()">
+      Save
+    </button>
+
+  </div>
+
+  <div class="grid">
+
+    <div>
+
+      <label>
+        গাড়ির নাম
+      </label>
+
+      <input
+        id="carName"
+        placeholder="CNG-01">
+
+    </div>
+
+    <div>
+
+      <label>
+        কেনার তারিখ
+      </label>
+
+      <input
+        id="carDate"
+        type="date">
+
+    </div>
+
+    <div>
+
+      <label>
+        কেনার দাম
+      </label>
+
+      <input
+        id="carPrice"
+        type="number"
+        min="0">
+
+    </div>
+
+    <div>
+
+      <label>
+        দৈনিক রিকভারি
+      </label>
+
+      <input
+        id="carRate"
+        type="number"
+        min="0"
+        value="500">
+
+    </div>
+
+  </div>
+
+  <div style="margin-top:12px">
+
+    <div class="between">
+
+      <span>
+        Recovery
+      </span>
+
+      <b id="recoveryText">
+        ৳0 / ৳0
+      </b>
+
+    </div>
+
+    <div class="progress">
+
+      <i id="recoveryBar"></i>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- DAILY -->
+
+<section class="card">
+
+  <div class="between">
+
+    <h2>
+      🧾 দৈনিক তালিকা
+    </h2>
+
+    <button
+      class="btn no-print"
+      onclick="downloadPDF()">
+      📄 PDF Save
+    </button>
+
+  </div>
+
+  <div class="scroll">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>তারিখ</th>
+          <th>আয়</th>
+          <th>খরচ</th>
+          <th>লাভ</th>
+          <th>অবস্থা</th>
+          <th class="no-print">Action</th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="dailyTable">
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+<!-- BACKUP -->
+
+<section class="card no-print">
+
+  <h2>
+    💾 Backup
+  </h2>
+
+  <div class="row">
+
+    <button
+      class="btn"
+      onclick="backup()">
+      JSON Backup
+    </button>
+
+    <button
+      class="gray"
+      onclick="document.getElementById('restoreFile').click()">
+      Restore
+    </button>
+
+    <button
+      class="green"
+      onclick="downloadPDF()">
+      📄 PDF Save
+    </button>
+
+    <input
+      id="restoreFile"
+      type="file"
+      accept=".json,application/json"
+      class="hidden"
+      onchange="restore(this.files[0])">
+
+  </div>
+
+  <p class="muted">
+    Gmail Login করলে Cloud Sync হবে।
+    একই Gmail দিয়ে অন্য ফোনে Login করলে আগের হিসাব পাওয়া যাবে।
+  </p>
+
+</section>
+
+
+<!-- SETTINGS -->
+
+<section
+  id="settingsCard"
+  class="card no-print hidden">
+
+  <div class="between">
+
+    <h2>
+      ⚙️ Settings
+    </h2>
+
+    <button
+      class="gray"
+      onclick="hideSettings()">
+      বন্ধ
+    </button>
+
+  </div>
+
+  <div class="grid2">
+
+    <div>
+
+      <label>
+        App Name
+      </label>
+
+      <input
+        id="settingTitle"
+        value="জাহিদ পরিবহন">
+
+    </div>
+
+    <div>
+
+      <label>
+        Custom Logo
+      </label>
+
+      <input
+        id="logoFile"
+        type="file"
+        accept="image/*">
+
+    </div>
+
+  </div>
+
+  <div
+    class="row"
+    style="margin-top:10px">
+
+    <button
+      class="btn"
+      onclick="saveSettings()">
+      Save
+    </button>
+
+    <button
+      class="gray"
+      onclick="resetLogo()">
+      CNG Logo Reset
+    </button>
+
+  </div>
+
+</section>
+
+
+<!-- ADMIN -->
+
+<section
+  id="adminPanel"
+  class="card no-print hidden">
+
+  <div class="between">
+
+    <h2>
+      👑 Admin Panel
+    </h2>
+
+    <span class="badge">
+      md0756404@gmail.com
+    </span>
+
+  </div>
+
+  <p class="muted">
+    Admin এখানে ব্যবহারকারীদের Cloud হিসাব দেখতে পারবে।
+  </p>
+
+  <div id="adminUsers">
+  </div>
+
+</section>
+
+</div>
+
+
+<!-- LOGIN -->
+
+<div id="loginGate">
+
+  <div class="login">
+
+    <div
+      class="logo"
+      id="loginLogo">
+    </div>
+
+    <h2>
+      Gmail Login
+    </h2>
+
+    <p class="muted">
+      Cloud Backup ও অন্য ফোনে হিসাব পেতে Login করুন।
+    </p>
+
+    <div
+      id="loginMsg"
+      class="notice hidden">
+    </div>
+
+
+    <div id="emailForm">
+
+      <label>
+        Gmail
+      </label>
+
+      <input
+        id="email"
+        type="email"
+        placeholder="your@gmail.com">
+
+      <label style="margin-top:9px">
+        Password
+      </label>
+
+      <input
+        id="password"
+        type="password"
+        placeholder="কমপক্ষে 6 অক্ষর">
+
+      <div
+        class="row"
+        style="margin-top:10px">
+
+        <button
+          class="btn"
+          onclick="login()">
+          Login
+        </button>
+
+        <button
+          class="green"
+          onclick="register()">
+          New Account
+        </button>
+
+      </div>
+
+      <button
+        class="gray"
+        style="width:100%;margin-top:8px"
+        onclick="googleLogin()">
+        Continue with Google
+      </button>
+
+      <button
+        class="gray"
+        style="width:100%;margin-top:8px"
+        onclick="resetPassword()">
+        Forgot Password
+      </button>
+
+    </div>
+
+
+    <div
+      id="verifyBox"
+      class="hidden">
+
+      <div class="notice">
+
+        ✉️ Gmail-এ verification link পাঠানো হয়েছে।
+
+        <br><br>
+
+        Gmail খুলে link-এ চাপ দিয়ে
+        account Verify করুন।
+
+        <br><br>
+
+        এটি 6-digit code নয়;
+        Firebase email verification link ব্যবহার করে।
+
+      </div>
+
+      <div
+        class="row"
+        style="margin-top:10px">
+
+        <button
+          class="btn"
+          onclick="resendVerification()">
+          আবার Email পাঠান
+        </button>
+
+        <button
+          class="green"
+          onclick="checkVerified()">
+          আমি Verify করেছি
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="gray"
+      style="width:100%;margin-top:10px"
+      onclick="closeLogin()">
+      বন্ধ
+    </button>
+
+  </div>
+
+</div>
+
+
+<script type="module">
+
+import {
+  initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  sendEmailVerification,
+  sendPasswordResetEmail,
+  signOut,
+  onAuthStateChanged,
+  reload
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+import {
+  getFirestore,
+  doc,
+  getDoc,
+  setDoc,
+  collection,
+  getDocs,
+  serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+
+/* =========================
+   FIREBASE
+========================= */
+
+const ADMIN_EMAIL =
+  "md0756404@gmail.com";
+
+const FIREBASE_CONFIG = {
+
+  apiKey:
+    "AIzaSyBXK9FQxmHimzmcyDoBYLS5Gi1FRrFTJTE",
+
+  authDomain:
+    "jahid-5a393.firebaseapp.com",
+
+  databaseURL:
+    "https://jahid-5a393-default-rtdb.firebaseio.com",
+
+  projectId:
+    "jahid-5a393",
+
+  storageBucket:
+    "jahid-5a393.firebasestorage.app",
+
+  messagingSenderId:
+    "455093989715",
+
+  appId:
+    "1:455093989715:web:5bf72d9cd8305bbb76b1a6"
+};
+
+
+const firebaseApp =
+  initializeApp(FIREBASE_CONFIG);
+
+const auth =
+  getAuth(firebaseApp);
+
+const db =
+  getFirestore(firebaseApp);
+
+
+/* =========================
+   DATA
+========================= */
+
+const LOCAL_KEY =
+  "gari-hisab-v3";
+
+let DB =
+  loadDB();
+
+let AUTH_USER =
+  null;
+
+let PENDING_USER =
+  null;
+
+
+/* =========================
+   BASIC
+========================= */
+
+function today(){
+
+  return new Date()
+    .toISOString()
+    .slice(0,10);
+
+}
+
+
+function currentMonth(){
+
+  return (
+    document.getElementById("monthPick").value ||
+    today().slice(0,7)
+  );
+
+}
+
+
+function currentProfile(){
+
+  return (
+    DB.profiles[DB.active] ||
+    Object.values(DB.profiles)[0]
+  );
+
+}
+
+
+function blankProfile(){
+
+  return {
+
+    name:"",
+    pdate:"",
+    price:0,
+    rate:500,
+
+    off:{},
+
+    day:{},
+
+    exp:[]
+
+  };
+
+}
+
+
+function loadDB(){
+
+  try{
+
+    const old =
+      JSON.parse(
+        localStorage.getItem(LOCAL_KEY) ||
+        "null"
+      );
+
+    if(
+      old &&
+      old.profiles
+    ){
+
+      return old;
+
+    }
+
+  }catch(error){
+
+    console.log(error);
+
+  }
+
+
+  return {
+
+    active:"p1",
+
+    ts:Date.now(),
+
+    profiles:{
+      p1:blankProfile()
+    }
+
+  };
+
+}
+
+
+function saveLocal(){
+
+  DB.ts =
+    Date.now();
+
+  localStorage.setItem(
+    LOCAL_KEY,
+    JSON.stringify(DB)
+  );
+
+  if(AUTH_USER){
+
+    cloudPush();
+
+  }
+
+}
+
+
+/* =========================
+   FIRESTORE PATH
+========================= */
+
+function userRef(uid){
+
+  return doc(
+    db,
+    "users",
+    uid,
+    "data",
+    "hisab"
+  );
+
+}
+
+
+/* =========================
+   CLOUD SAVE
+========================= */
+
+async function cloudPush(){
+
+  if(!AUTH_USER)
+    return;
+
+  try{
+
+    await setDoc(
+      userRef(AUTH_USER.uid),
+      {
+
+        json:
+          JSON.stringify(DB),
+
+        ts:
+          DB.ts,
+
+        email:
+          AUTH_USER.email || "",
+
+        updatedAt:
+          serverTimestamp()
+
+      },
+      {
+        merge:true
+      }
+    );
+
+
+    /* User index for Admin */
+
+    await setDoc(
+
+      doc(
+        db,
+        "users",
+        AUTH_USER.uid
+      ),
+
+      {
+
+        email:
+          AUTH_USER.email || "",
+
+        updatedAt:
+          serverTimestamp()
+
+      },
+
+      {
+        merge:true
+      }
+
+    );
+
+  }catch(error){
+
+    console.error(
+      "Cloud save error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   CLOUD LOAD
+========================= */
+
+async function cloudPull(){
+
+  if(!AUTH_USER)
+    return;
+
+  try{
+
+    const snap =
+      await getDoc(
+        userRef(
+          AUTH_USER.uid
+        )
+      );
+
+
+    if(
+      snap.exists() &&
+      snap.data().json
+    ){
+
+      const cloudData =
+        JSON.parse(
+          snap.data().json
+        );
+
+
+      const cloudTime =
+        Number(
+          snap.data().ts || 0
+        );
+
+      const localTime =
+        Number(
+          DB.ts || 0
+        );
+
+
+      /*
+       Same Firebase path:
+       users/{uid}/data/hisab
+      */
+
+      if(
+        cloudTime >= localTime
+      ){
+
+        DB =
+          cloudData;
+
+        localStorage.setItem(
+          LOCAL_KEY,
+          JSON.stringify(DB)
+        );
+
+      }else{
+
+        await cloudPush();
+
+      }
+
+    }else{
+
+      /*
+       First login:
+       upload current local data
+      */
+
+      await cloudPush();
+
+    }
+
+
+    render();
+
+  }catch(error){
+
+    console.error(
+      "Cloud load error:",
+      error
+    );
+
+  }
+
+}
+
+
+/* =========================
+   CNG LOGO
+========================= */
+
+function cngSVG(){
+
+  return `
+
+  <svg
+    viewBox="0 0 120 120"
+    xmlns="http://www.w3.org/2000/svg">
+
+    <rect
+      width="120"
+      height="120"
+      rx="20"
+      fill="#e9faf8"/>
+
+    <circle
+      cx="34"
+      cy="88"
+      r="11"
+      fill="#17323d"/>
+
+    <circle
+      cx="88"
+      cy="88"
+      r="11"
+      fill="#17323d"/>
+
+    <path
+      d="M22 78V55c0-8 7-14 15-14h35l17 14v23H22z"
+      fill="#12a594"/>
+
+    <path
+      d="M42 47h28l9 9H42z"
+      fill="#b9eff0"/>
+
+    <path
+      d="M27 67h66v10H27z"
+      fill="#087f8c"/>
+
+    <text
+      x="60"
+      y="72"
+      text-anchor="middle"
+      font-size="13"
+      font-weight="900"
+      fill="white">
+      CNG
+    </text>
+
+    <circle
+      cx="29"
+      cy="58"
+      r="3"
+      fill="white"/>
+
+    <circle
+      cx="91"
+      cy="58"
+      r="3"
+      fill="white"/>
+
+  </svg>
+
+  `;
+
+}
+
+
+function renderLogo(){
+
+  const custom =
+    localStorage.getItem(
+      "cngCustomLogo"
+    );
+
+
+  const html =
+    custom
+
+    ?
+
+    `<img
+      src="${custom}"
+      alt="Logo">`
+
+    :
+
+    cngSVG();
+
+
+  document.getElementById(
+    "logoBox"
+  ).innerHTML = html;
+
+
+  document.getElementById(
+    "loginLogo"
+  ).innerHTML = html;
+
+}
+
+
+/* =========================
+   RENDER
+========================= */
+
+function render(){
+
+  renderLogo();
+
+
+  document.getElementById(
+    "appTitle"
+  ).textContent =
+    localStorage.getItem(
+      "appTitle"
+    ) ||
+    "জাহিদ পরিবহন";
+
+
+  const tabs =
+    document.getElementById(
+      "profileTabs"
+    );
+
+  tabs.innerHTML = "";
+
+
+  Object.entries(
+    DB.profiles
+  ).forEach(
+    ([id,p])=>{
+
+      const button =
+        document.createElement(
+          "button"
+        );
+
+
+      button.className =
+        id === DB.active
+        ?
+        "btn"
+        :
+        "gray";
+
+
+      button.textContent =
+        "🚕 " +
+        (
+          p.name ||
+          id
+        );
+
+
+      button.onclick =
+        ()=>{
+
+          DB.active =
+            id;
+
+          saveLocal();
+
+          render();
+
+        };
+
+
+      tabs.appendChild(
+        button
+      );
+
+    }
+  );
+
+
+  const p =
+    currentProfile();
+
+
+  const m =
+    currentMonth();
+
+
+  const dates =
+    Object.keys(
+      p.day || {}
+    )
+    .filter(
+      d=>d.startsWith(m)
+    );
+
+
+  let monthIncome = 0;
+  let monthExpense = 0;
+  let runningDays = 0;
+
+
+  dates.forEach(
+    date=>{
+
+      monthIncome +=
+        Number(
+          p.day[date] || 0
+        );
+
+
+      monthExpense +=
+        (p.exp || [])
+        .filter(
+          e=>e.date === date
+        )
+        .reduce(
+          (sum,e)=>
+            sum +
+            Number(
+              e.amount || 0
+            ),
+          0
+        );
+
+
+      if(
+        !p.off?.[date]
+      ){
+
+        runningDays++;
+
+      }
+
+    }
+  );
+
+
+  const td =
+    today();
+
+
+  const todayIncome =
+    Number(
+      p.day?.[td] || 0
+    );
+
+
+  const todayExpense =
+    (p.exp || [])
+    .filter(
+      e=>e.date === td
+    )
+    .reduce(
+      (sum,e)=>
+        sum +
+        Number(
+          e.amount || 0
+        ),
+      0
+    );
+
+
+  document.getElementById(
+    "todayText"
+  ).textContent =
+    td;
+
+
+  document.getElementById(
+    "todayIncome"
+  ).textContent =
+    money(todayIncome);
+
+
+  document.getElementById(
+    "todayExpense"
+  ).textContent =
+    money(todayExpense);
+
+
+  document.getElementById(
+    "todayProfit"
+  ).textContent =
+    money(
+      todayIncome -
+      todayExpense
+    );
+
+
+  document.getElementById(
+    "todayStatus"
+  ).textContent =
+    p.off?.[td]
+    ?
+    "অফ"
+    :
+    "চালু";
+
+
+  document.getElementById(
+    "monthIncome"
+  ).textContent =
+    money(monthIncome);
+
+
+  document.getElementById(
+    "monthExpense"
+  ).textContent =
+    money(monthExpense);
+
+
+  document.getElementById(
+    "monthProfit"
+  ).textContent =
+    money(
+      monthIncome -
+      monthExpense
+    );
+
+
+  document.getElementById(
+    "runDays"
+  ).textContent =
+    bn(runningDays);
+
+
+  /* Vehicle */
+
+  document.getElementById(
+    "carName"
+  ).value =
+    p.name || "";
+
+
+  document.getElementById(
+    "carDate"
+  ).value =
+    p.pdate || "";
+
+
+  document.getElementById(
+    "carPrice"
+  ).value =
+    p.price || 0;
+
+
+  document.getElementById(
+    "carRate"
+  ).value =
+    p.rate || 500;
+
+
+  let recovered = 0;
+
+
+  Object.entries(
+    p.day || {}
+  ).forEach(
+    ([date,value])=>{
+
+      if(
+        date >=
+        String(
+          p.pdate || ""
+        )
+      ){
+
+        recovered +=
+          Number(
+            value || 0
+          );
+
+      }
+
+    }
+  );
+
+
+  const price =
+    Number(
+      p.price || 0
+    );
+
+
+  const percentage =
+    price > 0
+    ?
+    Math.min(
+      100,
+      recovered / price * 100
+    )
+    :
+    0;
+
+
+  document.getElementById(
+    "recoveryText"
+  ).textContent =
+    money(recovered) +
+    " / " +
+    money(price);
+
+
+  document.getElementById(
+    "recoveryBar"
+  ).style.width =
+    percentage + "%";
+
+
+  /* Daily table */
+
+  const table =
+    document.getElementById(
+      "dailyTable"
+    );
+
+  table.innerHTML = "";
+
+
+  dates
+  .sort()
+  .reverse()
+  .forEach(
+    date=>{
+
+      const inc =
+        Number(
+          p.day[date] || 0
+        );
+
+
+      const out =
+        (p.exp || [])
+        .filter(
+          e=>e.date === date
+        )
+        .reduce(
+          (sum,e)=>
+            sum +
+            Number(
+              e.amount || 0
+            ),
+          0
+        );
+
+
+      const tr =
+        document.createElement(
+          "tr"
+        );
+
+
+      tr.innerHTML = `
+
+        <td>${date}</td>
+
+        <td>
+          ${money(inc)}
+        </td>
+
+        <td>
+          ${money(out)}
+        </td>
+
+        <td>
+          ${money(inc-out)}
+        </td>
+
+        <td>
+          ${
+            p.off?.[date]
+            ?
+            "অফ"
+            :
+            "চালু"
+          }
+        </td>
+
+        <td class="no-print">
+
+          <button
+            class="red small"
+            onclick="deleteDay('${date}')">
+
+            Delete
+
+          </button>
+
+        </td>
+
+      `;
+
+
+      table.appendChild(
+        tr
+      );
+
+    }
+  );
+
+
+  /* Login status */
+
+  document.getElementById(
+    "userState"
+  ).textContent =
+    AUTH_USER
+    ?
+    "☁️ Cloud Connected"
+    :
+    "📱 Guest Mode";
+
+
+  document.getElementById(
+    "userEmail"
+  ).textContent =
+    AUTH_USER
+    ?
+    (
+      AUTH_USER.email ||
+      "Google Account"
+    )
+    :
+    "Gmail Login করলে Cloud Backup চালু হবে";
+
+
+  const admin =
+    isAdmin();
+
+
+  document.getElementById(
+    "adminBadge"
+  )
+  .classList
+  .toggle(
+    "hidden",
+    !admin
+  );
+
+
+  document.getElementById(
+    "adminPanel"
+  )
+  .classList
+  .toggle(
+    "hidden",
+    !admin
+  );
+
+
+  if(admin){
+
+    loadAdminUsers();
+
+  }
+
+}
+
+
+/* =========================
+   NUMBER
+========================= */
+
+function bn(value){
+
+  return Number(
+    value || 0
+  ).toLocaleString(
+    "bn-BD"
+  );
+
+}
+
+
+function money(value){
+
+  return "৳" +
+    bn(value);
+
+}
+
+
+/* =========================
+   INCOME
+========================= */
+
+window.addIncome =
+()=>{
+
+  const date =
+    document.getElementById(
+      "incomeDate"
+    ).value ||
+    today();
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "incomeAmount"
+      ).value || 0
+    );
+
+
+  if(amount <= 0){
+
+    alert(
+      "আয়ের টাকা দিন"
+    );
+
+    return;
+
+  }
+
+
+  currentProfile()
+    .day[date] =
+    amount;
+
+
+  saveLocal();
+
+  document.getElementById(
+    "incomeAmount"
+  ).value = "";
+
+
+  render();
+
+};
+
+
+/* =========================
+   EXPENSE
+========================= */
+
+window.addExpense =
+()=>{
+
+  const date =
+    document.getElementById(
+      "expenseDate"
+    ).value ||
+    today();
+
+
+  const amount =
+    Number(
+      document.getElementById(
+        "expenseAmount"
+      ).value || 0
+    );
+
+
+  if(amount <= 0){
+
+    alert(
+      "খরচের টাকা দিন"
+    );
+
+    return;
+
+  }
+
+
+  currentProfile()
+    .exp
+    .push({
+
+      date:date,
+
+      cat:
+        document.getElementById(
+          "expenseCat"
+        ).value,
+
+      amount:amount,
+
+      note:
+        document.getElementById(
+          "expenseNote"
+        ).value ||
+        ""
+
+    });
+
+
+  saveLocal();
+
+
+  document.getElementById(
+    "expenseAmount"
+  ).value = "";
+
+
+  document.getElementById(
+    "expenseNote"
+  ).value = "";
+
+
+  render();
+
+};
+
+
+/* =========================
+   DELETE DAY
+========================= */
+
+window.deleteDay =
+date=>{
+
+  if(
+    !confirm(
+      date +
+      " এর সম্পূর্ণ হিসাব Delete করবেন?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  const p =
+    currentProfile();
+
+
+  delete p.day[date];
+
+  delete p.off[date];
+
+
+  p.exp =
+    p.exp.filter(
+      e=>e.date !== date
+    );
+
+
+  saveLocal();
+
+  render();
+
+};
+
+
+/* =========================
+   VEHICLE
+========================= */
+
+window.saveVehicle =
+()=>{
+
+  const p =
+    currentProfile();
+
+
+  p.name =
+    document.getElementById(
+      "carName"
+    ).value;
+
+
+  p.pdate =
+    document.getElementById(
+      "carDate"
+    ).value;
+
+
+  p.price =
+    Number(
+      document.getElementById(
+        "carPrice"
+      ).value || 0
+    );
+
+
+  p.rate =
+    Number(
+      document.getElementById(
+        "carRate"
+      ).value || 500
+    );
+
+
+  saveLocal();
+
+  render();
+
+};
+
+
+/* =========================
+   NEW VEHICLE
+========================= */
+
+window.newProfile =
+()=>{
+
+  const id =
+    "p" +
+    Date.now();
+
+
+  DB.profiles[id] =
+    blankProfile();
+
+
+  DB.active =
+    id;
+
+
+  saveLocal();
+
+  render();
+
+};
+
+
+/* =========================
+   BACKUP
+========================= */
+
+window.backup =
+()=>{
+
+  const blob =
+    new Blob(
+      [
+        JSON.stringify(
+          DB,
+          null,
+          2
+        )
+      ],
+      {
+        type:
+          "application/json"
+      }
+    );
+
+
+  const url =
+    URL.createObjectURL(
+      blob
+    );
+
+
+  const a =
+    document.createElement(
+      "a"
+    );
+
+
+  a.href = url;
+
+  a.download =
+    "jahid-poribohon-backup.json";
+
+
+  a.click();
+
+
+  URL.revokeObjectURL(
+    url
+  );
+
+};
+
+
+/* =========================
+   RESTORE
+========================= */
+
+window.restore =
+file=>{
+
+  if(!file)
+    return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+  ()=>{
+
+    try{
+
+      const data =
+        JSON.parse(
+          reader.result
+        );
+
+
+      if(
+        !data.profiles
+      ){
+
+        throw new Error();
+
+      }
+
+
+      DB =
+        data;
+
+
+      saveLocal();
+
+      render();
+
+
+      alert(
+        "Restore সফল হয়েছে"
+      );
+
+
+    }catch(error){
+
+      alert(
+        "Backup file সঠিক নয়"
+      );
+
+    }
+
+  };
+
+
+  reader.readAsText(
+    file
+  );
+
+};
+
+
+/* =========================
+   THEME
+========================= */
+
+window.toggleTheme =
+()=>{
+
+  const html =
+    document.documentElement;
+
+
+  const dark =
+    html.dataset.theme ===
+    "dark";
+
+
+  html.dataset.theme =
+    dark
+    ?
+    "light"
+    :
+    "dark";
+
+
+  localStorage.setItem(
+    "jahid-theme",
+    html.dataset.theme
+  );
+
+};
+
+
+const savedTheme =
+  localStorage.getItem(
+    "jahid-theme"
+  );
+
+
+if(savedTheme){
+
+  document.documentElement
+    .dataset
+    .theme =
+    savedTheme;
+
+}
+
+
+/* =========================
+   SETTINGS
+========================= */
+
+window.showSettings =
+()=>{
+
+  document.getElementById(
+    "settingsCard"
+  )
+  .classList
+  .remove(
+    "hidden"
+  );
+
+};
+
+
+window.hideSettings =
+()=>{
+
+  document.getElementById(
+    "settingsCard"
+  )
+  .classList
+  .add(
+    "hidden"
+  );
+
+};
+
+
+window.saveSettings =
+()=>{
+
+  const title =
+    document.getElementById(
+      "settingTitle"
+    ).value ||
+    "জাহিদ পরিবহন";
+
+
+  localStorage.setItem(
+    "appTitle",
+    title
+  );
+
+
+  render();
+
+};
+
+
+window.resetLogo =
+()=>{
+
+  localStorage.removeItem(
+    "cngCustomLogo"
+  );
+
+
+  renderLogo();
+
+};
+
+
+document.getElementById(
+  "logoFile"
+).onchange =
+event=>{
+
+  const file =
+    event.target.files[0];
+
+
+  if(!file)
+    return;
+
+
+  const reader =
+    new FileReader();
+
+
+  reader.onload =
+  ()=>{
+
+    localStorage.setItem(
+      "cngCustomLogo",
+      reader.result
+    );
+
+
+    renderLogo();
+
+  };
+
+
+  reader.readAsDataURL(
+    file
+  );
+
+};
+
+
+/* =========================
+   DATE
+========================= */
+
+window.setTodayIncome =
+()=>{
+
+  document.getElementById(
+    "incomeDate"
+  ).value =
+    today();
+
+};
+
+
+/* =========================
+   LOGIN UI
+========================= */
+
+window.openLogin =
+()=>{
+
+  document.getElementById(
+    "loginGate"
+  ).style.display =
+    "flex";
+
+};
+
+
+window.closeLogin =
+()=>{
+
+  document.getElementById(
+    "loginGate"
+  ).style.display =
+    "none";
+
+};
+
+
+function loginMessage(
+  message,
+  success=false
+){
+
+  const box =
+    document.getElementById(
+      "loginMsg"
+    );
+
+
+  if(!message){
+
+    box.className =
+      "notice hidden";
+
+    return;
+
+  }
+
+
+  box.textContent =
+    message;
+
+
+  box.className =
+    success
+    ?
+    "notice oknotice"
+    :
+    "notice";
+
+}
+
+
+/* =========================
+   LOGIN
+========================= */
+
+window.login =
+async()=>{
+
+  try{
+
+    const email =
+      document.getElementById(
+        "email"
+      ).value
+      .trim();
+
+
+    const password =
+      document.getElementById(
+        "password"
+      ).value;
+
+
+    const result =
+      await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    const user =
+      result.user;
+
+
+    if(
+      !user.emailVerified
+    ){
+
+      PENDING_USER =
+        user;
+
+
+      document.getElementById(
+        "emailForm"
+      )
+      .classList
+      .add(
+        "hidden"
+      );
+
+
+      document.getElementById(
+        "verifyBox"
+      )
+      .classList
+      .remove(
+        "hidden"
+      );
+
+
+      loginMessage(
+        "আগে Gmail verification complete করুন"
+      );
+
+
+      return;
+
+    }
+
+
+    AUTH_USER =
+      user;
+
+
+    await cloudPull();
+
+
+    closeLogin();
+
+    render();
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   REGISTER
+========================= */
+
+window.register =
+async()=>{
+
+  try{
+
+    const email =
+      document.getElementById(
+        "email"
+      ).value
+      .trim();
+
+
+    const password =
+      document.getElementById(
+        "password"
+      ).value;
+
+
+    const result =
+      await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+
+
+    const user =
+      result.user;
+
+
+    PENDING_USER =
+      user;
+
+
+    await sendEmailVerification(
+      user
+    );
+
+
+    document.getElementById(
+      "emailForm"
+    )
+    .classList
+    .add(
+      "hidden"
+    );
+
+
+    document.getElementById(
+      "verifyBox"
+    )
+    .classList
+    .remove(
+      "hidden"
+    );
+
+
+    loginMessage(
+      "Gmail verification link পাঠানো হয়েছে।",
+      true
+    );
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   RESEND
+========================= */
+
+window.resendVerification =
+async()=>{
+
+  try{
+
+    if(!PENDING_USER)
+      return;
+
+
+    await sendEmailVerification(
+      PENDING_USER
+    );
+
+
+    loginMessage(
+      "Verification email আবার পাঠানো হয়েছে।",
+      true
+    );
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   CHECK VERIFY
+========================= */
+
+window.checkVerified =
+async()=>{
+
+  try{
+
+    if(!PENDING_USER){
+
+      loginMessage(
+        "আগে Login করুন"
+      );
+
+      return;
+
+    }
+
+
+    await reload(
+      PENDING_USER
+    );
+
+
+    if(
+      PENDING_USER.emailVerified
+    ){
+
+      AUTH_USER =
+        PENDING_USER;
+
+
+      await cloudPull();
+
+
+      closeLogin();
+
+      render();
+
+
+    }else{
+
+      loginMessage(
+        "এখনও Verify হয়নি। Gmail-এর verification link চাপুন।"
+      );
+
+    }
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   GOOGLE
+========================= */
+
+window.googleLogin =
+async()=>{
+
+  try{
+
+    const provider =
+      new GoogleAuthProvider();
+
+
+    const result =
+      await signInWithPopup(
+        auth,
+        provider
+      );
+
+
+    AUTH_USER =
+      result.user;
+
+
+    await cloudPull();
+
+
+    closeLogin();
+
+    render();
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   PASSWORD RESET
+========================= */
+
+window.resetPassword =
+async()=>{
+
+  const email =
+    document.getElementById(
+      "email"
+    ).value
+    .trim();
+
+
+  if(!email){
+
+    loginMessage(
+      "আগে Gmail লিখুন"
+    );
+
+    return;
+
+  }
+
+
+  try{
+
+    await sendPasswordResetEmail(
+      auth,
+      email
+    );
+
+
+    loginMessage(
+      "Password reset email পাঠানো হয়েছে।",
+      true
+    );
+
+
+  }catch(error){
+
+    loginMessage(
+      firebaseError(
+        error.code
+      )
+    );
+
+  }
+
+};
+
+
+/* =========================
+   LOGOUT
+========================= */
+
+window.logout =
+async()=>{
+
+  await signOut(
+    auth
+  );
+
+
+  AUTH_USER =
+    null;
+
+
+  render();
+
+};
+
+
+/* =========================
+   FIREBASE ERRORS
+========================= */
+
+function firebaseError(
+  code
+){
+
+  const errors = {
+
+    "auth/invalid-credential":
+      "Email অথবা Password ভুল",
+
+    "auth/email-already-in-use":
+      "এই Email দিয়ে Account আগে থেকেই আছে",
+
+    "auth/weak-password":
+      "Password কমপক্ষে 6 অক্ষরের দিন",
+
+    "auth/invalid-email":
+      "Email সঠিক নয়",
+
+    "auth/too-many-requests":
+      "অনেকবার চেষ্টা হয়েছে। কিছুক্ষণ পরে চেষ্টা করুন",
+
+    "auth/popup-closed-by-user":
+      "Login popup বন্ধ করা হয়েছে",
+
+    "auth/operation-not-allowed":
+      "Firebase Authentication-এ এই Login method চালু নেই"
+
+  };
+
+
+  return (
+    errors[code] ||
+    code ||
+    "Login error"
+  );
+
+}
+
+
+/* =========================
+   ADMIN
+========================= */
+
+function isAdmin(){
+
+  return (
+
+    !!AUTH_USER &&
+
+    String(
+      AUTH_USER.email || ""
+    ).toLowerCase() ===
+    ADMIN_EMAIL.toLowerCase()
+
+  );
+
+}
+
+
+/* =========================
+   ADMIN USERS
+========================= */
+
+async function loadAdminUsers(){
+
+  const box =
+    document.getElementById(
+      "adminUsers"
+    );
+
+
+  box.innerHTML =
+    "Loading...";
+
+
+  try{
+
+    const snapshot =
+      await getDocs(
+        collection(
+          db,
+          "users"
+        )
+      );
+
+
+    box.innerHTML = "";
+
+
+    snapshot.forEach(
+      document=>{
+
+        const data =
+          document.data();
+
+
+        const div =
+          document.createElement(
+            "div"
+          );
+
+
+        div.className =
+          "admin-user";
+
+
+        div.innerHTML = `
+
+          <div class="between">
+
+            <div>
+
+              <b>
+                ${
+                  data.email ||
+                  document.id
+                }
+              </b>
+
+              <div class="muted">
+                UID:
+                ${document.id}
+              </div>
+
+            </div>
+
+            <button
+              class="btn">
+              হিসাব দেখুন
+            </button>
+
+          </div>
+
+        `;
+
+
+        div.querySelector(
+          "button"
+        ).onclick =
+          ()=>adminView(
+            document.id,
+            data.email ||
+            document.id
+          );
+
+
+        box.appendChild(
+          div
+        );
+
+      }
+    );
+
+
+    if(
+      !snapshot.size
+    ){
+
+      box.innerHTML =
+        "<p class='muted'>কোনো User পাওয়া যায়নি।</p>";
+
+    }
+
+
+  }catch(error){
+
+    box.innerHTML =
+      "Admin data load error: " +
+      error.message;
+
+  }
+
+}
+
+
+/* =========================
+   ADMIN VIEW
+========================= */
+
+async function adminView(
+  uid,
+  email
+){
+
+  try{
+
+    const snapshot =
+      await getDoc(
+        userRef(uid)
+      );
+
+
+    if(
+      !snapshot.exists()
+    ){
+
+      alert(
+        "এই User-এর হিসাব নেই"
+      );
+
+      return;
+
+    }
+
+
+    const data =
+      JSON.parse(
+        snapshot.data().json
+      );
+
+
+    let income = 0;
+    let expense = 0;
+
+
+    Object.values(
+      data.profiles || {}
+    )
+    .forEach(
+      p=>{
+
+        Object.values(
+          p.day || {}
+        )
+        .forEach(
+          value=>{
+
+            income +=
+              Number(
+                value || 0
+              );
+
+          }
+        );
+
+
+        (p.exp || [])
+        .forEach(
+          e=>{
+
+            expense +=
+              Number(
+                e.amount || 0
+              );
+
+          }
+        );
+
+      }
+    );
+
+
+    alert(
+
+      "User: " +
+      email +
+
+      "\n\nমোট আয়: " +
+      money(income) +
+
+      "\nমোট খরচ: " +
+      money(expense) +
+
+      "\nমোট লাভ: " +
+      money(
+        income -
+        expense
+      )
+
+    );
+
+
+  }catch(error){
+
+    alert(
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================
+   PDF SAVE
+========================= */
+
+window.downloadPDF =
+()=>{
+
+  const p =
+    currentProfile();
+
+
+  const m =
+    currentMonth();
+
+
+  const dates =
+    Object.keys(
+      p.day || {}
+    )
+    .filter(
+      date=>date.startsWith(m)
+    )
+    .sort()
+    .reverse();
+
+
+  let rows = "";
+
+
+  dates.forEach(
+    date=>{
+
+      const income =
+        Number(
+          p.day[date] || 0
+        );
+
+
+      const expense =
+        (p.exp || [])
+        .filter(
+          e=>e.date === date
+        )
+        .reduce(
+          (sum,e)=>
+            sum +
+            Number(
+              e.amount || 0
+            ),
+          0
+        );
+
+
+      rows += `
+
+        <tr>
+
+          <td>${date}</td>
+
+          <td>
+            ${money(income)}
+          </td>
+
+          <td>
+            ${money(expense)}
+          </td>
+
+          <td>
+            ${money(
+              income-expense
+            )}
+          </td>
+
+          <td>
+            ${
+              p.off?.[date]
+              ?
+              "অফ"
+              :
+              "চালু"
+            }
+          </td>
+
+        </tr>
+
+      `;
+
+    }
+  );
+
+
+  const popup =
+    window.open(
+      "",
+      "_blank"
+    );
+
+
+  if(!popup){
+
+    alert(
+      "Popup blocked হয়েছে। Browser popup Allow করুন।"
+    );
+
+    return;
+
+  }
+
+
+  popup.document.write(`
+
+<!DOCTYPE html>
+
+<html lang="bn">
+
+<head>
+
+<meta charset="UTF-8">
+
+<title>
+${document.getElementById("appTitle").textContent}
+</title>
+
+<style>
+
+body{
+  font-family:Arial,
+  "Noto Sans Bengali",
+  sans-serif;
+  padding:25px;
+  color:#111;
+}
+
+h1{
+  font-size:28px;
+}
+
+.info{
+  margin-bottom:15px;
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+th,td{
+  border:1px solid #777;
+  padding:8px;
+}
+
+th{
+  background:#eee;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>
+${document.getElementById("appTitle").textContent}
+</h1>
+
+<div class="info">
+
+<b>গাড়ি:</b>
+${p.name || "—"}
+
+<br>
+
+<b>মাস:</b>
+${m}
+
+<br>
+
+<b>মোট আয়:</b>
+${document.getElementById("monthIncome").textContent}
+
+&nbsp;&nbsp;
+
+<b>মোট খরচ:</b>
+${document.getElementById("monthExpense").textContent}
+
+&nbsp;&nbsp;
+
+<b>লাভ:</b>
+${document.getElementById("monthProfit").textContent}
+
+</div>
+
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>তারিখ</th>
+
+<th>আয়</th>
+
+<th>খরচ</th>
+
+<th>লাভ</th>
+
+<th>অবস্থা</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+${rows}
+
+</tbody>
+
+</table>
+
+
+<script>
+
+setTimeout(
+  function(){
+    window.print();
+  },
+  500
+);
+
+<\/script>
+
+</body>
+
+</html>
+
+  `);
+
+
+  popup.document.close();
+
+};
+
+
+/* =========================
+   AUTH STATE
+========================= */
+
+onAuthStateChanged(
+  auth,
+  async user=>{
+
+    if(!user){
+
+      AUTH_USER =
+        null;
+
+      render();
+
+      return;
+
+    }
+
+
+    /*
+     Google login is verified.
+     Email login must be verified.
+    */
+
+    const google =
+      (user.providerData || [])
+      .some(
+        provider=>
+          provider.providerId ===
+          "google.com"
+      );
+
+
+    if(
+      google ||
+      user.emailVerified
+    ){
+
+      AUTH_USER =
+        user;
+
+
+      await cloudPull();
+
+    }else{
+
+      PENDING_USER =
+        user;
+
+    }
+
+
+    render();
+
+  }
+);
+
+
+/* =========================
+   INITIAL
+========================= */
+
+document.getElementById(
+  "monthPick"
+).value =
+  today().slice(0,7);
+
+
+document.getElementById(
+  "incomeDate"
+).value =
+  today();
+
+
+document.getElementById(
+  "expenseDate"
+).value =
+  today();
+
+
+document.getElementById(
+  "settingTitle"
+).value =
+  localStorage.getItem(
+    "appTitle"
+  ) ||
+  "জাহিদ পরিবহন";
+
+
+render();
+
+</script>
+
+</body>
+</html>
